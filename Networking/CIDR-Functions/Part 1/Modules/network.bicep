@@ -4,7 +4,7 @@ param azvnetname string
 param azvnetaddresspace string
 param azvnetsubnets int
 
-// var SubnetCalculatie = [for i in range (0, azvnetsubnets): cidrSubnet(azvnetaddresspace, 26, i)]
+// var SubnetCalculation = [for i in range (0, azvnetsubnets): cidrSubnet(azvnetaddresspace, 26, i)]
 
 // resource AzVNet 'Microsoft.Network/virtualNetworks@2019-11-01' = {
 //   name: azvnetname
@@ -14,7 +14,7 @@ param azvnetsubnets int
 //     addressSpace: {
 //       addressPrefixes: [azvnetaddresspace]
 //     }
-//     subnets: [ for (snet, i) in SubnetCalculatie: {
+//     subnets: [ for (snet, i) in SubnetCalculation: {
 //       name: i == 0 ? 'snet-workloads' : i == 1? 'snet-domain' : 'snet-${i}'
 //       properties: {
 //         addressPrefix: snet 
@@ -25,10 +25,8 @@ param azvnetsubnets int
 // }
 
 
-
-
 @description('Defining our network logic')
-var SubnetCalculatie = map(range(0, azvnetsubnets), i => { 
+var SubnetCalculation = map(range(0, azvnetsubnets), i => { 
   name: i == 0 ? 'snet-workloads' : i == 1 ? 'snet-domain' : 'snet-${i}'
   properties: {
     addressPrefix: cidrSubnet(azvnetaddresspace, 26, i)
@@ -44,6 +42,6 @@ resource AzVNet 'Microsoft.Network/virtualNetworks@2019-11-01' = {
     addressSpace: {
       addressPrefixes: [azvnetaddresspace]
     }
-    subnets: SubnetCalculatie
+    subnets: SubnetCalculation
   }
 }
