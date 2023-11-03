@@ -1,5 +1,6 @@
 targetScope = 'subscription'
 
+@description('Defining main parameters')
 param location string = 'westeurope'
 param shortlocation string = substring(location,0, 2)
 param createdby string = 'Brian Veldman'
