@@ -1,0 +1,58 @@
+{
+  "policySetDefinitions": {
+    "delete": {},
+    "new": {},
+    "numberUnchanged": 0,
+    "update": {},
+    "replace": {},
+    "numberOfChanges": 0
+  },
+  "pacOwnerId": "57c879c2-5e44-43fb-911a-388f52277d9e",
+  "policyDefinitions": {
+    "delete": {},
+    "new": {},
+    "numberUnchanged": 0,
+    "update": {},
+    "replace": {},
+    "numberOfChanges": 0
+  },
+  "assignments": {
+    "delete": {},
+    "new": {},
+    "numberUnchanged": 0,
+    "update": {},
+    "replace": {
+      "/providers/Microsoft.Management/managementGroups/ctEpacProd/providers/Microsoft.Authorization/policyAssignments/f4758684271b4558b7db5f32": {
+        "identity": {
+          "type": "None"
+        },
+        "name": "f4758684271b4558b7db5f32",
+        "identityRequired": false,
+        "metadata": {
+          "assignedBy": "MOD Administrator",
+          "parameterScopes": {},
+          "pacOwnerId": "57c879c2-5e44-43fb-911a-388f52277d9e"
+        },
+        "displayName": "CloudTips - Audit virtual machines without disaster recovery configured",
+        "enforcementMode": "Default",
+        "description": "CloudTips - Audit virtual machines without disaster recovery configured",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0015ea4d-51ff-4ce3-8d8c-f3f8f0179a56",
+        "id": "/providers/Microsoft.Management/managementGroups/ctEpacDev/providers/Microsoft.Authorization/policyAssignments/f4758684271b4558b7db5f32",
+        "scope": "/providers/Microsoft.Management/managementGroups/ctEpacDev",
+        "notScopes": []
+      }
+    },
+    "numberOfChanges": 1
+  },
+  "exemptions": {
+    "numberUnchanged": 0,
+    "new": {},
+    "numberOfChanges": 0,
+    "numberOfOrphans": 0,
+    "update": {},
+    "numberOfExpired": 0,
+    "delete": {},
+    "replace": {}
+  },
+  "createdOn": "2024-04-16 20:42:42Z"
+}

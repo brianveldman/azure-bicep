@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/policy-assignment-schema.json",
+  "nodeName": "/root",
+  "definitionEntry": {
+    "policyId": "/providers/Microsoft.Authorization/policyDefinitions/0015ea4d-51ff-4ce3-8d8c-f3f8f0179a56",
+    "displayName": "Audit virtual machines without disaster recovery configured"
+  },
+  "assignment": {
+    "name": "f4758684271b4558b7db5f32",
+    "displayName": "CloudTips - Audit virtual machines without disaster recovery configured",
+    "description": "CloudTips - Audit virtual machines without disaster recovery configured"
+  },
+  "metadata": {
+    "parameterScopes": {},
+    "assignedBy": "MOD Administrator"
+  },
+  "overrides": [],
+  "resourceSelectors": [],
+  "scope": {
+    "cloudTipsDevEnv": [
+      "/providers/Microsoft.Management/managementGroups/ctEpacDev"
+    ]
+  },
+  "managedIdentityLocations": {
+    "cloudTipsDevEnv": "westeurope"
+  }
+}

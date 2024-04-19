@@ -1,0 +1,2 @@
+"pacSelector","kind","owner","principalId","lastChange","category","displayName","id"
+"cloudTipsDevEnv","Assignment(Policy-Builtin)","unknownOwner","e06ee165-378b-488c-8366-87b3fb3b9888","2024-04-16T20:21:22","","CloudTips - Audit virtual machines without disaster recovery configured","/providers/Microsoft.Management/managementGroups/ctEpacDev/providers/Microsoft.Authorization/policyAssignments/f4758684271b4558b7db5f32"

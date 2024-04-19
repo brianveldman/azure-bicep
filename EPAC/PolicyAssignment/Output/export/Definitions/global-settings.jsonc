@@ -1,0 +1,32 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/enterprise-azure-policy-as-code/main/Schemas/global-settings-schema.json",
+    "pacOwnerId" : "57c879c2-5e44-43fb-911a-388f52277d9e", //Generated via New-Guid
+    "pacEnvironments": [
+        {
+            "pacSelector": "cloudTipsDevEnv", //Which Environment
+            "cloud": "AzureCloud",
+            "tenantId": "XXXXXXX",
+            "deploymentRootScope": "/providers/Microsoft.Management/managementGroups/ctEpacDev", //MGMT Scope
+            "desiredState": {
+                "strategy": "ownedOnly", //Only manage Policy Resources in EPAC                  
+                "keepDfcSecurityAssignments": true  // Dont remove DfC policy assignments
+            },
+            "managedIdentityLocation" : {
+                "*": "westeurope" //MI Location
+            }
+        },
+        {
+            "pacSelector": "cloudTipsProdEnv", //Which Environment
+            "cloud": "AzureCloud",
+            "tenantId": "XXXXXXX",
+            "deploymentRootScope": "/providers/Microsoft.Management/managementGroups/ctEpacProd", //MGMT Scope
+            "desiredState": {
+                "strategy": "ownedOnly", //Only manage Policy Resources in EPAC                  
+                "keepDfcSecurityAssignments": true  // Dont remove DfC policy assignments
+            },
+            "managedIdentityLocation" : {
+                "*": "westeurope" //MI Location
+            }
+        }
+    ]
+}
