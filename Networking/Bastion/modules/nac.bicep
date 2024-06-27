@@ -8,6 +8,8 @@ param _storageAccountName_ string
 param _blobContainerName_ string
 param _keyVaultName_ string
 
+
+@description('Deploying VNet to host our workloads')
 resource vnetSpoke 'Microsoft.Network/virtualNetworks@2023-06-01' = {
   name: _vnetSpokeName_
   location: __location__
@@ -35,7 +37,7 @@ resource vnetSpoke 'Microsoft.Network/virtualNetworks@2023-06-01' = {
   }
 }
 
-
+@description('Deploying Public IP for Bastion Host')
 resource publicIPAddress 'Microsoft.Network/publicIPAddresses@2019-11-01' = {
   name: _publicIpAddressName_
   location: __location__
@@ -49,6 +51,7 @@ resource publicIPAddress 'Microsoft.Network/publicIPAddresses@2019-11-01' = {
   }
 }
 
+@description('Deploying Bastion Host')
 resource bastion 'Microsoft.Network/bastionHosts@2023-11-01' = {
   name: _bastionHostName_
   location: __location__
@@ -74,6 +77,7 @@ resource bastion 'Microsoft.Network/bastionHosts@2023-11-01' = {
   }
 }
 
+@description('Deploying our Storage Account')
 resource basSrStorageAccount 'Microsoft.Storage/storageAccounts@2021-02-01' = {
   name: _storageAccountName_
   location: __location__
