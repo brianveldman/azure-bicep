@@ -16,8 +16,8 @@ var _tags_ = {
 }
 
 var _aiResourceGroupName_ = 'rg-ai-${__env__}'
-var _aiComputeVisionName_ = 'cv-ai-${__env__}'
-var _aiComputeVisionSku_ = 'F0'
+var _aiComputerVisionName_ = 'cv-ai-${__env__}'
+var _aiComputerVisionSku_ = 'F0'
 
 resource aiResourceGroup 'Microsoft.Resources/resourceGroups@2024-03-01' = {
   name: _aiResourceGroupName_
@@ -31,7 +31,7 @@ module aiModule './modules/ai-cv.bicep' = {
   params: {
     __location__: __location__
     _tags_: _tags_
-    _aiComputeVisionName_ : _aiComputeVisionName_
-    _aiComputeVisionSku_: _aiComputeVisionSku_
+    _aiComputerVisionName_ : _aiComputerVisionName_
+    _aiComputerVisionSku_: _aiComputerVisionSku_
   }
 }
