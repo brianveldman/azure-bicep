@@ -100,7 +100,7 @@ resource blobServices 'Microsoft.Storage/storageAccounts/blobServices@2023-05-01
         {
           allowedHeaders: ['*']
           allowedMethods: ['GET']
-          allowedOrigins: ['HTTPS://${bastion.properties.dnsName}']
+          allowedOrigins: ['https://${bastion.properties.dnsName}']
           exposedHeaders: ['*']
           maxAgeInSeconds: 86400
         }
