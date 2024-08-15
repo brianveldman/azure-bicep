@@ -1,0 +1,15 @@
+{
+    "experimentalFeaturesEnabled": {
+      "extensibility": true,
+      "extensionRegistry": true,
+      "localDeploy": true
+    },
+    "cloud": {"credentialPrecedence": ["Environment"]},
+    "extensions": {
+      "kubernetes": "br:biceplocaldeploy.azurecr.io/extensions/kubernetes:0.1.34",
+      "utils": "br:biceplocaldeploy.azurecr.io/extensions/utils:0.1.34",
+      "github": "br:biceplocaldeploy.azurecr.io/extensions/github:0.1.34",
+      "http": "br:biceplocaldeploy.azurecr.io/extensions/http:0.1.34"
+    },
+    "implicitExtensions": []
+  }
