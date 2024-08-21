@@ -1,0 +1,25 @@
+rule:
+  includeLocal: true
+
+binding:
+  preferTargetInfo: true
+  targetType:
+    - 'resourceType'
+    - 'type'
+
+include:
+  module:
+    - PSRule.Rules.Azure
+    - PSRule.Rules.CAF
+
+input:
+  pathIgnore:
+    - '*.md'
+      
+execution:
+  unprocessedObject: Ignore
+  
+configuration:
+  AZURE_BICEP_FILE_EXPANSION: true
+  AZURE_BICEP_CHECK_TOOL: true
+  AZURE_BICEP_FILE_EXPANSION_TIMEOUT: 15
