@@ -1,0 +1,613 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.29.47.4906",
+      "templateHash": "7825597841169671457"
+    },
+    "name": "Networking as Code (NaC), VNets & Firewalls <3",
+    "description": "This Bicep code deploys Networking as Code, including Hub & Spoke VNet, with peerings and Azure Firewall",
+    "owner": "Brian Veldman"
+  },
+  "parameters": {
+    "__location__": {
+      "type": "string",
+      "defaultValue": "westeurope",
+      "metadata": {
+        "description": "Location to deploy resources"
+      }
+    },
+    "__env__": {
+      "type": "string",
+      "allowedValues": [
+        "dev",
+        "test",
+        "prod"
+      ],
+      "metadata": {
+        "description": "Environment"
+      }
+    },
+    "__cust__": {
+      "type": "string",
+      "metadata": {
+        "description": "Customer"
+      }
+    },
+    "__startDate__": {
+      "type": "string",
+      "defaultValue": "[utcNow('d-M-yyyy')]",
+      "metadata": {
+        "description": "Start date, used for tagging purposes"
+      }
+    },
+    "__author__": {
+      "type": "string",
+      "defaultValue": "Brian Veldman",
+      "metadata": {
+        "description": "Bicep template created by"
+      }
+    },
+    "__website__": {
+      "type": "string",
+      "defaultValue": "CloudTips.nl",
+      "metadata": {
+        "description": "Blogger at"
+      }
+    },
+    "__loggingEnabled__": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Decide if you want to enable logging for Azure Firewall"
+      }
+    },
+    "__vgwEnabled__": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Decide if you want to deploy VNET Gateway"
+      }
+    }
+  },
+  "variables": {
+    "_tags_": {
+      "createdBy": "[parameters('__author__')]",
+      "website": "[parameters('__website__')]",
+      "environment": "[parameters('__env__')]",
+      "startDate": "[parameters('__startDate__')]"
+    },
+    "_vnetHubName_": "[format('vnet-hub-{0}', parameters('__env__'))]",
+    "_vnetHubAddrSpace_": "10.150.0.0/23",
+    "_vnetHubSubnetCount_": 3,
+    "_vnetSpokeName_": "[format('vnet-spoke-{0}', parameters('__env__'))]",
+    "_vnetSpokeAddrSpace_": "10.151.0.0/22",
+    "_vnetSpokeSubnetCount_": 4,
+    "_routeTable_": "[format('rt-{0}-{1}', parameters('__cust__'), parameters('__env__'))]",
+    "_vgwName_": "[format('vgw-{0}-{1}', parameters('__cust__'), parameters('__env__'))]",
+    "_vgwPipName_": "[format('pip-vgw-{0}-{1}', parameters('__cust__'), parameters('__env__'))]",
+    "_afwName_": "[format('afw-{0}-{1}', parameters('__cust__'), parameters('__env__'))]",
+    "_afwPipName_": "[format('pip-afw-{0}-{1}', parameters('__cust__'), parameters('__env__'))]",
+    "_afwMgmtPipName_": "[format('mgmt-pip-afw-{0}-{1}', parameters('__cust__'), parameters('__env__'))]",
+    "_afwpName_": "[format('afwp-{0}-{1}', parameters('__cust__'), parameters('__env__'))]",
+    "_nacRgName_": "[format('rg-networking-{0}', parameters('__env__'))]",
+    "_lawName_": "[format('law-networking-{0}', parameters('__env__'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2023-07-01",
+      "name": "[variables('_nacRgName_')]",
+      "location": "[parameters('__location__')]",
+      "tags": "[variables('_tags_')]"
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "module-vnet-deployment",
+      "resourceGroup": "[variables('_nacRgName_')]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "__location__": {
+            "value": "[parameters('__location__')]"
+          },
+          "_tags_": {
+            "value": "[variables('_tags_')]"
+          },
+          "_vnetHubName_": {
+            "value": "[variables('_vnetHubName_')]"
+          },
+          "_vnetHubAddrSpace_": {
+            "value": "[variables('_vnetHubAddrSpace_')]"
+          },
+          "_vnetHubSubnetCount_": {
+            "value": "[variables('_vnetHubSubnetCount_')]"
+          },
+          "_vnetSpokeName_": {
+            "value": "[variables('_vnetSpokeName_')]"
+          },
+          "_vnetSpokeAddrSpace_": {
+            "value": "[variables('_vnetSpokeAddrSpace_')]"
+          },
+          "_vnetSpokeSubnetCount_": {
+            "value": "[variables('_vnetSpokeSubnetCount_')]"
+          },
+          "_routeTable_": {
+            "value": "[variables('_routeTable_')]"
+          },
+          "_vgwName_": {
+            "value": "[variables('_vgwName_')]"
+          },
+          "_vgwPipName_": {
+            "value": "[variables('_vgwPipName_')]"
+          },
+          "__vgwEnabled__": {
+            "value": "[parameters('__vgwEnabled__')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.29.47.4906",
+              "templateHash": "8430218998030296026"
+            }
+          },
+          "parameters": {
+            "__location__": {
+              "type": "string"
+            },
+            "_tags_": {
+              "type": "object"
+            },
+            "_vnetHubName_": {
+              "type": "string"
+            },
+            "_vnetHubAddrSpace_": {
+              "type": "string"
+            },
+            "_vnetHubSubnetCount_": {
+              "type": "int"
+            },
+            "_vnetSpokeName_": {
+              "type": "string"
+            },
+            "_vnetSpokeAddrSpace_": {
+              "type": "string"
+            },
+            "_vnetSpokeSubnetCount_": {
+              "type": "int"
+            },
+            "_routeTable_": {
+              "type": "string"
+            },
+            "_vgwName_": {
+              "type": "string"
+            },
+            "_vgwPipName_": {
+              "type": "string"
+            },
+            "__vgwEnabled__": {
+              "type": "bool"
+            }
+          },
+          "variables": {
+            "_vnetHubSubnetCalculation_": "[map(range(0, parameters('_vnetHubSubnetCount_')), lambda('i', createObject('name', if(equals(lambdaVariables('i'), 0), 'AzureFirewallSubnet', if(equals(lambdaVariables('i'), 1), 'AzureFirewallManagementSubnet', 'GatewaySubnet')), 'properties', createObject('addressPrefix', cidrSubnet(parameters('_vnetHubAddrSpace_'), 26, lambdaVariables('i'))))))]",
+            "_afwIpv4_": "[cidrHost(variables('_vnetHubSubnetCalculation_')[0].properties.addressPrefix, 4)]",
+            "_vnetSpokeCalculation_": "[map(range(0, parameters('_vnetSpokeSubnetCount_')), lambda('i', createObject('name', if(equals(lambdaVariables('i'), 0), 'snet-workloads-1', if(equals(lambdaVariables('i'), 1), 'snet-workloads-2', if(equals(lambdaVariables('i'), 2), 'snet-workloads-3', 'snet-workloads-4'))), 'properties', createObject('addressPrefix', cidrSubnet(parameters('_vnetSpokeAddrSpace_'), 24, lambdaVariables('i')), 'routeTable', createObject('id', resourceId('Microsoft.Network/routeTables', parameters('_routeTable_')))))))]"
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/routeTables",
+              "apiVersion": "2019-11-01",
+              "name": "[parameters('_routeTable_')]",
+              "location": "[parameters('__location__')]",
+              "properties": {
+                "routes": [
+                  {
+                    "name": "udr-route-all-through-afw",
+                    "properties": {
+                      "addressPrefix": "0.0.0.0/0",
+                      "nextHopType": "VirtualAppliance",
+                      "nextHopIpAddress": "[variables('_afwIpv4_')]"
+                    }
+                  }
+                ],
+                "disableBgpRoutePropagation": true
+              }
+            },
+            {
+              "type": "Microsoft.Network/virtualNetworks",
+              "apiVersion": "2023-06-01",
+              "name": "[parameters('_vnetHubName_')]",
+              "location": "[parameters('__location__')]",
+              "tags": "[parameters('_tags_')]",
+              "properties": {
+                "addressSpace": {
+                  "addressPrefixes": [
+                    "[parameters('_vnetHubAddrSpace_')]"
+                  ]
+                },
+                "subnets": "[variables('_vnetHubSubnetCalculation_')]"
+              }
+            },
+            {
+              "type": "Microsoft.Network/virtualNetworks",
+              "apiVersion": "2023-06-01",
+              "name": "[parameters('_vnetSpokeName_')]",
+              "location": "[parameters('__location__')]",
+              "properties": {
+                "addressSpace": {
+                  "addressPrefixes": [
+                    "[parameters('_vnetSpokeAddrSpace_')]"
+                  ]
+                },
+                "subnets": "[variables('_vnetSpokeCalculation_')]"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/routeTables', parameters('_routeTable_'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Network/publicIPAddresses",
+              "apiVersion": "2023-06-01",
+              "name": "[parameters('_vgwPipName_')]",
+              "location": "[parameters('__location__')]",
+              "tags": "[parameters('_tags_')]",
+              "sku": {
+                "name": "Standard"
+              },
+              "properties": {
+                "publicIPAllocationMethod": "Static",
+                "publicIPAddressVersion": "IPv4"
+              },
+              "metadata": {
+                "description": "Deploying Firewall PIP"
+              }
+            },
+            {
+              "condition": "[parameters('__vgwEnabled__')]",
+              "type": "Microsoft.Network/virtualNetworkGateways",
+              "apiVersion": "2023-06-01",
+              "name": "[parameters('_vgwName_')]",
+              "location": "[parameters('__location__')]",
+              "tags": "[parameters('_tags_')]",
+              "properties": {
+                "ipConfigurations": [
+                  {
+                    "name": "default",
+                    "properties": {
+                      "privateIPAllocationMethod": "Dynamic",
+                      "subnet": {
+                        "id": "[reference(resourceId('Microsoft.Network/virtualNetworks', parameters('_vnetHubName_')), '2023-06-01').subnets[2].id]"
+                      },
+                      "publicIPAddress": {
+                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('_vgwPipName_'))]"
+                      }
+                    }
+                  }
+                ],
+                "sku": {
+                  "name": "VpnGw1",
+                  "tier": "VpnGw1"
+                },
+                "gatewayType": "Vpn",
+                "vpnType": "RouteBased",
+                "enableBgp": false
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('_vgwPipName_'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('_vnetHubName_'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+              "apiVersion": "2023-06-01",
+              "name": "[format('{0}/{1}', parameters('_vnetHubName_'), format('{0}-to-{1}', parameters('_vnetHubName_'), parameters('_vnetSpokeName_')))]",
+              "properties": {
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": true,
+                "allowGatewayTransit": true,
+                "useRemoteGateways": false,
+                "remoteVirtualNetwork": {
+                  "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('_vnetSpokeName_'))]"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworkGateways', parameters('_vgwName_'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('_vnetHubName_'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('_vnetSpokeName_'))]"
+              ],
+              "metadata": {
+                "description": "VNet Peerings"
+              }
+            },
+            {
+              "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+              "apiVersion": "2023-06-01",
+              "name": "[format('{0}/{1}', parameters('_vnetSpokeName_'), format('{0}-to-{1}', parameters('_vnetSpokeName_'), parameters('_vnetHubName_')))]",
+              "properties": {
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": true,
+                "allowGatewayTransit": false,
+                "useRemoteGateways": "[if(parameters('__vgwEnabled__'), true(), false())]",
+                "remoteVirtualNetwork": {
+                  "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('_vnetHubName_'))]"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworkGateways', parameters('_vgwName_'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('_vnetHubName_'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('_vnetSpokeName_'))]"
+              ]
+            }
+          ],
+          "outputs": {
+            "afwSubnet": {
+              "type": "string",
+              "metadata": {
+                "description": "Outputting subnet ids for firewall"
+              },
+              "value": "[reference(resourceId('Microsoft.Network/virtualNetworks', parameters('_vnetHubName_')), '2023-06-01').subnets[0].id]"
+            },
+            "afwMgmtSubnet": {
+              "type": "string",
+              "value": "[reference(resourceId('Microsoft.Network/virtualNetworks', parameters('_vnetHubName_')), '2023-06-01').subnets[1].id]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', variables('_nacRgName_'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "module-afw-deployment",
+      "resourceGroup": "[variables('_nacRgName_')]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "__location__": {
+            "value": "[parameters('__location__')]"
+          },
+          "_tags_": {
+            "value": "[variables('_tags_')]"
+          },
+          "_afwName_": {
+            "value": "[variables('_afwName_')]"
+          },
+          "_afwPipName_": {
+            "value": "[variables('_afwPipName_')]"
+          },
+          "_afwMgmtPipName_": {
+            "value": "[variables('_afwMgmtPipName_')]"
+          },
+          "_afwpName_": {
+            "value": "[variables('_afwpName_')]"
+          },
+          "__loggingEnabled__": {
+            "value": "[parameters('__loggingEnabled__')]"
+          },
+          "_lawName_": {
+            "value": "[variables('_lawName_')]"
+          },
+          "afwSubnet": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('_nacRgName_')), 'Microsoft.Resources/deployments', 'module-vnet-deployment'), '2022-09-01').outputs.afwSubnet.value]"
+          },
+          "afwMgmtSubnet": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('_nacRgName_')), 'Microsoft.Resources/deployments', 'module-vnet-deployment'), '2022-09-01').outputs.afwMgmtSubnet.value]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.29.47.4906",
+              "templateHash": "14191308744482284461"
+            }
+          },
+          "parameters": {
+            "__location__": {
+              "type": "string"
+            },
+            "_tags_": {
+              "type": "object"
+            },
+            "_afwName_": {
+              "type": "string"
+            },
+            "_afwPipName_": {
+              "type": "string"
+            },
+            "_afwMgmtPipName_": {
+              "type": "string"
+            },
+            "_afwpName_": {
+              "type": "string"
+            },
+            "__loggingEnabled__": {
+              "type": "bool"
+            },
+            "_lawName_": {
+              "type": "string"
+            },
+            "afwSubnet": {
+              "type": "string",
+              "metadata": {
+                "description": "Outputs from other modules"
+              }
+            },
+            "afwMgmtSubnet": {
+              "type": "string"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/publicIPAddresses",
+              "apiVersion": "2023-06-01",
+              "name": "[parameters('_afwPipName_')]",
+              "location": "[parameters('__location__')]",
+              "tags": "[parameters('_tags_')]",
+              "sku": {
+                "name": "Standard"
+              },
+              "properties": {
+                "publicIPAllocationMethod": "Static",
+                "publicIPAddressVersion": "IPv4"
+              },
+              "metadata": {
+                "description": "Deploying Firewall PIP"
+              }
+            },
+            {
+              "type": "Microsoft.Network/publicIPAddresses",
+              "apiVersion": "2023-06-01",
+              "name": "[parameters('_afwMgmtPipName_')]",
+              "location": "[parameters('__location__')]",
+              "tags": "[parameters('_tags_')]",
+              "sku": {
+                "name": "Standard"
+              },
+              "properties": {
+                "publicIPAllocationMethod": "Static",
+                "publicIPAddressVersion": "IPv4"
+              },
+              "metadata": {
+                "description": "Deploying Firewall Management PIP"
+              }
+            },
+            {
+              "type": "Microsoft.Network/firewallPolicies",
+              "apiVersion": "2023-06-01",
+              "name": "[parameters('_afwpName_')]",
+              "location": "[parameters('__location__')]",
+              "tags": "[parameters('_tags_')]",
+              "properties": {
+                "sku": {
+                  "tier": "Basic"
+                }
+              },
+              "metadata": {
+                "description": "Deploying Firewall Basic Policy"
+              }
+            },
+            {
+              "type": "Microsoft.Network/azureFirewalls",
+              "apiVersion": "2023-06-01",
+              "name": "[parameters('_afwName_')]",
+              "location": "[parameters('__location__')]",
+              "tags": "[parameters('_tags_')]",
+              "properties": {
+                "sku": {
+                  "name": "AZFW_VNet",
+                  "tier": "Basic"
+                },
+                "ipConfigurations": [
+                  {
+                    "name": "afwIpConfig",
+                    "properties": {
+                      "publicIPAddress": {
+                        "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('_afwPipName_'))]"
+                      },
+                      "subnet": {
+                        "id": "[parameters('afwSubnet')]"
+                      }
+                    }
+                  }
+                ],
+                "managementIpConfiguration": {
+                  "name": "afwMgmtPipConfig",
+                  "properties": {
+                    "publicIPAddress": {
+                      "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('_afwMgmtPipName_'))]"
+                    },
+                    "subnet": {
+                      "id": "[parameters('afwMgmtSubnet')]"
+                    }
+                  }
+                },
+                "firewallPolicy": {
+                  "id": "[resourceId('Microsoft.Network/firewallPolicies', parameters('_afwpName_'))]"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('_afwMgmtPipName_'))]",
+                "[resourceId('Microsoft.Network/firewallPolicies', parameters('_afwpName_'))]",
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('_afwPipName_'))]"
+              ],
+              "metadata": {
+                "description": "Deploying Firewall Basic"
+              }
+            },
+            {
+              "condition": "[parameters('__loggingEnabled__')]",
+              "type": "Microsoft.OperationalInsights/workspaces",
+              "apiVersion": "2022-10-01",
+              "name": "[parameters('_lawName_')]",
+              "location": "[parameters('__location__')]",
+              "tags": "[parameters('_tags_')]",
+              "properties": {
+                "sku": {
+                  "name": "PerGB2018"
+                }
+              }
+            },
+            {
+              "condition": "[parameters('__loggingEnabled__')]",
+              "type": "Microsoft.Insights/diagnosticSettings",
+              "apiVersion": "2021-05-01-preview",
+              "scope": "[format('Microsoft.Network/azureFirewalls/{0}', parameters('_afwName_'))]",
+              "name": "afwlogging",
+              "properties": {
+                "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('_lawName_'))]",
+                "logs": [
+                  {
+                    "categoryGroup": "allLogs",
+                    "enabled": true,
+                    "retentionPolicy": {
+                      "enabled": false,
+                      "days": 0
+                    }
+                  }
+                ]
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/azureFirewalls', parameters('_afwName_'))]",
+                "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('_lawName_'))]"
+              ]
+            }
+          ]
+        }
+      },
+      "dependsOn": [
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('_nacRgName_')), 'Microsoft.Resources/deployments', 'module-vnet-deployment')]",
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', variables('_nacRgName_'))]"
+      ]
+    }
+  ],
+  "outputs": {
+    "afwSubnet": {
+      "type": "string",
+      "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('_nacRgName_')), 'Microsoft.Resources/deployments', 'module-vnet-deployment'), '2022-09-01').outputs.afwSubnet.value]"
+    },
+    "afwMgmtSubnet": {
+      "type": "string",
+      "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('_nacRgName_')), 'Microsoft.Resources/deployments', 'module-vnet-deployment'), '2022-09-01').outputs.afwMgmtSubnet.value]"
+    }
+  }
+}
