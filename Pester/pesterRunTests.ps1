@@ -6,6 +6,8 @@
 .PARAMETER bicepDirectory
     The directory containing the Bicep files to test.
 
+.PARAMETER Debugging
+    A switch to indicate whether to keep the generated ARM templates after the tests have run.    
 ##>
 
 function Invoke-BicepUnitTests {
