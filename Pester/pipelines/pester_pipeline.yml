@@ -1,0 +1,29 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+  name: ctSelfHosted
+
+variables:
+  bicepDirectory: '.\'
+
+steps:
+- checkout: self
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      . '.\Pester\PesterRunTests.ps1'
+      Invoke-BicepUnitTests -bicepDirectory $(bicepDirectory)
+  displayName: 'Run Bicep Unit Tests'
+
+- task: PublishTestResults@2
+  condition: always()
+  inputs:
+    testResultsFormat: NUnit
+    testResultsFiles: '.\pester_tests.xml'
+    testRunTitle: 'Pester Test Results'
+    mergeTestResults: true
+  displayName: 'Publish Test Results'

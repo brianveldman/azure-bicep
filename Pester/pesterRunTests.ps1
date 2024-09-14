@@ -54,7 +54,6 @@ function Invoke-BicepUnitTests {
 
         # Run the tests
         Invoke-Pester -Configuration $pesterConfiguration
-        #Invoke-Pester -Script $pesterTestScripts -Output Detailed
 
         if(-not $Debugging) {
             # Clean up the generated ARM template
