@@ -1,0 +1,76 @@
+pool:
+  vmImage: 'windows-latest'
+  name: ctSelfHosted
+
+parameters:
+  - name: location
+    displayName: 'Location'
+    type: string
+    default: 'westeurope'
+    values:
+      - 'northeurope'
+      - 'westeurope'
+
+  - name: environment
+    displayName: 'Environment'
+    type: string
+    default: 'dev'
+    values:
+      - 'dev'
+      - 'prod'
+
+  - name: stackName
+    displayName: 'Name of Deployment Stack'
+    type: string
+
+variables:
+  serviceConnectionName: 'WIF_CT_PROD'
+
+stages: 
+  # Linting stage
+  - stage: Linting
+    jobs:
+      - job: Lint_Bicep
+        displayName: Lint_Bicep
+        steps:
+          - checkout: self
+          - script: |
+              az bicep build --file ./Bicep/MPS/main.bicep
+            displayName: Lint Bicep
+
+  # Validation stage
+  - stage: Validation
+    jobs:
+      - job: Validate_Bicep
+        displayName: Validate Bicep code
+        steps:
+          - checkout: self
+          - task: AzureCLI@2
+            name: Preflight_Bicep_Validation
+            displayName: Preflight Bicep Validation
+            inputs:
+              azureSubscription: $(serviceConnectionName)
+              scriptType: powershell
+              scriptLocation: inlineScript
+              inlineScript: |
+                echo "Location: ${{ parameters.location }}"
+                echo "Environment: ${{ parameters.environment }}"
+                echo "Stack Name: ${{ parameters.stackName }}"
+                az deployment sub validate --location ${{ parameters.location }} --template-file ./Bicep/MPS/main.bicep --parameters __env__=${{ parameters.environment }} __location__=${{ parameters.location }}
+
+  # Deployment stage
+  - stage: Deployment
+    jobs:
+      - job: Deploy_Bicep
+        displayName: Deploy Bicep code
+        steps:
+          - checkout: self
+          - task: AzureCLI@2
+            name: DeployBicep
+            displayName: Deploy Bicep
+            inputs:
+              azureSubscription: $(serviceConnectionName)
+              scriptType: powershell
+              scriptLocation: inlineScript
+              inlineScript: |
+                az stack sub create --name  ${{ parameters.stackName }} --action-on-unmanage detachAll --deny-settings-mode none --location ${{ parameters.location }} --template-file ./Bicep/MPS/main.bicep --parameters __env__=${{ parameters.environment }} __location__=${{ parameters.location }}
