@@ -1,7 +1,7 @@
 metadata name = 'Maester Automation as Code <3'
 metadata description = 'This Bicep code deploys Maester Automation Account with modules and runbook for automated report every month via e-mail'
 metadata owner = 'Brian Veldman'
-//add tags
+
 targetScope = 'subscription'
 
 extension microsoftGraphV1_0
