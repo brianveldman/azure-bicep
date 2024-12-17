@@ -24,10 +24,16 @@ Welcome on my page, my name is Brian Veldman, I created this repository for my p
  - [CIDR Functions - Part 2 - Multiple subnets with different sizes](https://github.com/brianveldman/azure-bicep/tree/main/Networking/CIDR-Functions/Part%202)
  - [Bastion Deployment - With Session Recordings](https://github.com/brianveldman/azure-bicep/blob/main/Networking/Bastion)
  - [VNet Multiple Prefixes - For a single subnet](https://github.com/brianveldman/azure-bicep/blob/main/Networking/MPS) 
+ - [Network Security Perimeter](https://github.com/brianveldman/azure-bicep/tree/main/Networking/Network%20Security%20Perimeter) 
  - [Networking as Code, including Hub & Spoke VNet, with peerings and Azure Firewall](https://github.com/brianveldman/azure-bicep/blob/main/Networking/Network%20as%20Code)  
 
 ## IaC Security
  - [PSRule - Validate code locally](https://github.com/brianveldman/azure-bicep/tree/main/PSRule)
+ - [Pester - Validate code locally](https://github.com/brianveldman/azure-bicep/blob/main/Pester)
+
+## Security
+ - [Maester - Azure Automation](https://github.com/brianveldman/azure-bicep/tree/main/Maester/AutomationAccount)
+ - [Maester - Azure WebApp](https://github.com/brianveldman/azure-bicep/tree/main/Maester/WebApp)
 
 ## Getting Started
 To get started with Bicep you need the following
