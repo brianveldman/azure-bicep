@@ -3,6 +3,8 @@
 Welcome on my page, my name is Brian Veldman, I created this repository for my personal Bicep projects 🔥
 
 ## Contact Information
+<a href="https://github.com/brianveldman"><img src="https://avatars.githubusercontent.com/u/147204186?v=4" title="Brian Veldman" width="80" height="80"></a>
+
 - [LinkedIn](https://www.linkedin.com/in/brian-veldman/)
 - [BlueSky](https://bsky.app/profile/brianveldman.bsky.social)
 - [Website](https://cloudtips.nl)
@@ -32,7 +34,7 @@ Welcome on my page, my name is Brian Veldman, I created this repository for my p
  - [PSRule - Validate code locally](https://github.com/brianveldman/azure-bicep/tree/main/PSRule)
  - [Pester - Validate code locally](https://github.com/brianveldman/azure-bicep/blob/main/Pester)
 
-## Security
+## Cloud Security
  - [Maester - Azure Automation](https://github.com/brianveldman/azure-bicep/tree/main/Maester/AutomationAccount)
  - [Maester - Azure WebApp](https://github.com/brianveldman/azure-bicep/tree/main/Maester/WebApp)
 
