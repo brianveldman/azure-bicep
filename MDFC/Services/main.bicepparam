@@ -1,0 +1,21 @@
+using 'main.bicep'
+
+param parTier = 'Standard'
+param parSolutions = [
+  'VirtualMachines'
+  'Ai'
+  'AppServices'
+  'SqlServers'
+  'SqlServerVirtualMachines'
+  'StorageAccounts'
+  'KubernetesService'
+  'ContainerRegistry'
+  'KeyVaults'
+  'Api'
+  'Arm'
+  'Dns'
+  'CosmosDbs'
+  'OpenSourceRelationalDatabases'
+  'CloudPosture'
+  'Containers'
+]
