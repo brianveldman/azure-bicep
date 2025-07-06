@@ -7,6 +7,7 @@ Welcome on my page, my name is Brian Veldman, I created this repository for my p
 
 - [LinkedIn](https://www.linkedin.com/in/brian-veldman/)
 - [BlueSky](https://bsky.app/profile/brianveldman.bsky.social)
+- [Reddit] (https://www.reddit.com/user/brianveldman/)
 - [Website](https://cloudtips.nl)
 
 ## ACS
