@@ -10,13 +10,16 @@ Welcome on my page, my name is Brian Veldman, I created this repository for my p
 - [Reddit](https://www.reddit.com/user/brianveldman/)
 - [Website](https://cloudtips.nl)
 
-## ACS
+## Communication Services
  - [Azure Communication Services - With Python for sending e-mails](https://github.com/brianveldman/azure-bicep/tree/main/ACS)
 
-## AI
+## Artificial Intelligence (AI)
  - [Azure OpenAI - With PowerShell Invoke-Function for asking questions](https://github.com/brianveldman/azure-bicep/tree/main/AI/OpenAI)
  - [Azure Computer Vision - With PowerShell for getting details about picture in JSON format](https://github.com/brianveldman/azure-bicep/tree/main/AI/Computer%20Vision)
- 
+
+## Azure Container Apps (ACA)
+ - [Running DeepSeek on Azure Container Apps](https://github.com/brianveldman/azure-bicep/tree/main/Azure%20Container%20Apps/DeepSeek)
+
 ## Enterprise Policy as Code (EPAC)
  - [EPAC - With simple audit VMs without DR ](https://github.com/brianveldman/azure-bicep/tree/main/EPAC)
 
@@ -31,6 +34,9 @@ Welcome on my page, my name is Brian Veldman, I created this repository for my p
  - [Network Security Perimeter](https://github.com/brianveldman/azure-bicep/tree/main/Networking/Network%20Security%20Perimeter) 
  - [Networking as Code, including Hub & Spoke VNet, with peerings and Azure Firewall](https://github.com/brianveldman/azure-bicep/blob/main/Networking/Network%20as%20Code)  
 
+## Managed DevOps Pools
+ - [Azure Managed DevOps Pools](https://github.com/brianveldman/azure-bicep/tree/main/Managed%20DevOps%20Pools)
+
 ## IaC Security
  - [PSRule - Validate code locally](https://github.com/brianveldman/azure-bicep/tree/main/PSRule)
  - [Pester - Validate code locally](https://github.com/brianveldman/azure-bicep/blob/main/Pester)
@@ -38,6 +44,7 @@ Welcome on my page, my name is Brian Veldman, I created this repository for my p
 ## Cloud Security
  - [Maester - Azure Automation](https://github.com/brianveldman/azure-bicep/tree/main/Maester/AutomationAccount)
  - [Maester - Azure WebApp](https://github.com/brianveldman/azure-bicep/tree/main/Maester/WebApp)
+ - [Microsoft Entra Privileged Identity Management](https://github.com/brianveldman/azure-bicep/tree/main/PIM)
 
 ## Getting Started
 To get started with Bicep you need the following
