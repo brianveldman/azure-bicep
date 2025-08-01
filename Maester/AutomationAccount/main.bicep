@@ -4,7 +4,7 @@ metadata owner = 'Brian Veldman'
 
 targetScope = 'subscription'
 
-extension microsoftGraphV1_0
+extension microsoftGraphV1
 
 @description('Defing our input parameters')
 param __env__ string
