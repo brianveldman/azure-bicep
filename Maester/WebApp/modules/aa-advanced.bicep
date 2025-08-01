@@ -1,4 +1,4 @@
-extension microsoftGraphV1_0
+extension microsoftGraphV1
 param __location__ string
 param __maesterAppRoles__ array
 param __maesterAutomationAccountModules__ array
