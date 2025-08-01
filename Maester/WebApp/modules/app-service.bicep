@@ -2,7 +2,7 @@ param __location__ string
 param _appServiceName_ string
 param _appServicePlanName_ string
 param __ouMaesterAutomationMiId__ string
-extension microsoftGraphV1_0
+extension microsoftGraphV1
 
 @description('Role Assignments Deployment')
 resource contributorRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
