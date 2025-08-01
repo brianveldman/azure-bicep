@@ -3,7 +3,7 @@ metadata description = 'Deploys Maester Automation Account with modules and runb
 metadata owner = 'Brian Veldman'
 targetScope = 'subscription'
 
-extension microsoftGraphV1_0
+extension microsoftGraphV1
 
 @description('Defing our input parameters')
 param __env__ string
