@@ -1,6 +1,6 @@
 metadata name = 'Maester Automation as Code <3'
 metadata description = 'Deploys Maester Automation Account with modules and runbook for automated reports on Mon, Wed, Fri via Azure Web App with Entra ID Auth'
-metadata owner = 'Brian Veldman'
+metadata owner = 'Maester'
 targetScope = 'subscription'
 
 extension microsoftGraphV1
@@ -15,7 +15,7 @@ param __maesterAutomationAccountModules__ array
 @description('Defining our variables')
 var _maesterResourceGroupName_ = 'rg-maester-${__env__}'
 var _maesterAutomationAccountName_ = 'aa-maester-${__env__}'
-var _maesterStorageAccountName_ = 'sa${__cust__}maester${__env__}'
+var _maesterStorageAccountName_ = 'sa${__cust__}mae${__env__}001'
 var _maesterStorageBlobName_ = 'maester'
 var _maesterStorageBlobFileName_ = 'maester.ps1'
 var _appServiceName_ = 'app-maester-${__env__}'
@@ -32,6 +32,7 @@ module modAutomationAccount './modules/aa.bicep' = {
   params: {
     __location__: __location__
     _maesterAutomationAccountName_: _maesterAutomationAccountName_
+    __maesterAutomationAccountModules__: __maesterAutomationAccountModules__
     _maesterStorageAccountName_: _maesterStorageAccountName_
     _maesterStorageBlobName_: _maesterStorageBlobName_
     _maesterStorageBlobFileName_: _maesterStorageBlobFileName_
@@ -47,7 +48,6 @@ module modAutomationAccountAdvanced './modules/aa-advanced.bicep' = {
     __ouMaesterScriptBlobUri__: modAutomationAccount.outputs.__ouMaesterScriptBlobUri__
     _maesterAutomationAccountName_: _maesterAutomationAccountName_
     __maesterAppRoles__:  __maesterAppRoles__
-    __maesterAutomationAccountModules__: __maesterAutomationAccountModules__
 
   }
   scope: maesterResourceGroup
