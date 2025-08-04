@@ -1,7 +1,7 @@
 extension microsoftGraphV1
 param __location__ string
 param __maesterAppRoles__ array
-param __maesterAutomationAccountModules__ array
+
 param __ouMaesterAutomationMiId__ string
 param __ouMaesterScriptBlobUri__ string
 param _maesterAutomationAccountName_ string
@@ -23,24 +23,14 @@ resource automationAccount 'Microsoft.Automation/automationAccounts@2023-11-01' 
   name: _maesterAutomationAccountName_
 }
 
-@description('PowerShell Modules Deployment')
-resource automationAccountModules 'Microsoft.Automation/automationAccounts/powerShell72Modules@2023-11-01' = [ for module in __maesterAutomationAccountModules__: {
-  name: module.name
-  parent: automationAccount
-  properties: {
-    contentLink: {
-      uri: module.uri
-    }
-  }
-}]
-
 @description('Runbook Deployment')
-resource automationAccountRunbook 'Microsoft.Automation/automationAccounts/runbooks@2023-11-01' = {
+resource automationAccountRunbook 'Microsoft.Automation/automationAccounts/runbooks@2024-10-23' = {
   name: 'runBookMaester'
   location: __location__
   parent: automationAccount
   properties: {
-    runbookType: 'PowerShell72'
+    runbookType: 'PowerShell'
+    runtimeEnvironment: 'PowerShell-7.4'
     logProgress: true
     logVerbose: true
     description: 'Runbook to execute Maester report'
