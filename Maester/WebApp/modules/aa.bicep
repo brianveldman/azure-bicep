@@ -1,3 +1,4 @@
+
 param __location__ string
 param _maesterAutomationAccountName_ string
 param _maesterStorageAccountName_ string
@@ -14,6 +15,18 @@ resource automationAccount 'Microsoft.Automation/automationAccounts@2023-11-01' 
   properties: {
     sku: {
       name: 'Basic'
+    }
+  }
+}
+
+resource automationAccountRuntimeEnvironment 'Microsoft.Automation/automationAccounts/runtimeEnvironments@2024-10-23' = {
+  parent: automationAccount
+  name: 'PowerShell-7.4'
+  location: __location__
+  properties: {
+    runtime: {
+      language: 'PowerShell'
+      version: '7.4'
     }
   }
 }
