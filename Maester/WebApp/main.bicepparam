@@ -26,21 +26,26 @@ param __maesterAutomationAccountModules__ = [
   {
     name: 'Maester'
     uri: 'https://www.powershellgallery.com/api/v2/package/Maester'
+    version: '1.3.0'
   }
   {
     name: 'Microsoft.Graph.Authentication'
     uri: 'https://www.powershellgallery.com/api/v2/package/Microsoft.Graph.Authentication'
+    version: '2.29.1'
   }
   {
     name: 'Pester'
     uri: 'https://www.powershellgallery.com/api/v2/package/Pester'
+    version: '5.7.1'
   }
   {
     name: 'NuGet'
     uri: 'https://www.powershellgallery.com/api/v2/package/NuGet'
+    version: '1.3.3'
   }
   {
     name: 'PackageManagement'
     uri: 'https://www.powershellgallery.com/api/v2/package/PackageManagement'
+    version: '1.4.8.1'
   }
 ]
