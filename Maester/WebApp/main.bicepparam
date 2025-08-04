@@ -20,6 +20,7 @@ param __maesterAppRoles__ = [
   'SecurityIdentitiesHealth.Read.All'
   'SharePointTenantSettings.Read.All'
   'UserAuthenticationMethod.Read.All'
+  'RoleEligibilitySchedule.ReadWrite.Directory'
 ]
 
 param __maesterAutomationAccountModules__ = [
