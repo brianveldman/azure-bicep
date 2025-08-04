@@ -5,6 +5,8 @@ param __env__ = 'prod'
 param __cust__ = 'ct'
 param __location__ = 'westeurope'
 param __maesterAppRoles__ = [
+  'DeviceManagementConfiguration.Read.All'
+  'DeviceManagementManagedDevices.Read.All'
   'Directory.Read.All'
   'DirectoryRecommendations.Read.All'
   'IdentityRiskEvent.Read.All'
@@ -14,9 +16,10 @@ param __maesterAppRoles__ = [
   'Reports.Read.All'
   'RoleEligibilitySchedule.Read.Directory'
   'RoleManagement.Read.All'
+  'SecurityIdentitiesSensors.Read.All'
+  'SecurityIdentitiesHealth.Read.All'
   'SharePointTenantSettings.Read.All'
   'UserAuthenticationMethod.Read.All'
-  'Mail.Send'
 ]
 
 param __maesterAutomationAccountModules__ = [
