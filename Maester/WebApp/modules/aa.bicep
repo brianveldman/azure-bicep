@@ -1,6 +1,7 @@
 
 param __location__ string
 param _maesterAutomationAccountName_ string
+param __maesterAutomationAccountModules__ array
 param _maesterStorageAccountName_ string
 param _maesterStorageBlobName_ string
 param _maesterStorageBlobFileName_ string
@@ -31,6 +32,18 @@ resource automationAccountRuntimeEnvironment 'Microsoft.Automation/automationAcc
   }
 }
 
+resource rtePackages 'Microsoft.Automation/automationAccounts/runtimeEnvironments/packages@2024-10-23' = [
+  for m in __maesterAutomationAccountModules__: {
+    name: m.name
+    parent: automationAccountRuntimeEnvironment
+    properties: {
+      contentLink: {
+        uri: m.uri
+        version: m.version
+      }
+    }
+  }
+]
 resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' = {
   name: _maesterStorageAccountName_
   location: __location__
