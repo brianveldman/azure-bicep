@@ -12,11 +12,22 @@ resource graphId 'Microsoft.Graph/servicePrincipals@v1.0' existing = {
   appId: '00000003-0000-0000-c000-000000000000'
 }
 
+@description('Role Assignment Deployment')
+resource exchangeOnlineId 'Microsoft.Graph/servicePrincipals@v1.0' existing =  {
+  appId: '00000002-0000-0ff1-ce00-000000000000'
+}
+
 resource managedIdentityRoleAssignment 'Microsoft.Graph/appRoleAssignedTo@v1.0' = [for appRole in __maesterAppRoles__: {
     appRoleId: (filter(graphId.appRoles, role => role.value == appRole)[0]).id
     principalId: __ouMaesterAutomationMiId__
     resourceId: graphId.id
 }]
+
+resource managedIdentityRoleAssignmentExchange 'Microsoft.Graph/appRoleAssignedTo@v1.0' =  {
+  appRoleId: (filter(exchangeOnlineId.appRoles, role => role.value == 'Exchange.ManageAsApp')[0]).id
+  principalId: __ouMaesterAutomationMiId__
+  resourceId: exchangeOnlineId.id
+}
 
 @description('Existing Automation Account')
 resource automationAccount 'Microsoft.Automation/automationAccounts@2023-11-01' existing = {
