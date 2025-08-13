@@ -10,7 +10,7 @@ param parDcrDefenderSql string = 'dcr-defendersql-prod'
 
 @description('Enable collection of SQL queries for security research')
 @metadata({ displayName: 'Enable collection of SQL queries for security research' })
-param enableCollectionOfSqlQueriesForSecurityResearch bool = false
+param parEnableCollectionOfSqlQueriesForSecurityResearch bool = false
 
 module modDefenderSql './modules/defenderSql.bicep' = {
   name: parDcrDefenderSql
