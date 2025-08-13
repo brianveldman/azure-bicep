@@ -1,10 +1,17 @@
-@description('The name of the Managed Identity resource.')
-param userAssignedIdentityName string
-
 @description('location for the the resources to deploy.')
-param location string
+param location string = resourceGroup().location
 
-resource userAssignedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
+@description('The name of the Managed Identity resource.')
+param userAssignedIdentityName string = 'id-ama-prod'
+
+@description('The name of the resource group where the Managed Identity resource will be created.')
+param userAssignedIdentityResourceGroup string
+
+module userAssignedIdentity './uami.bicep' = {
   name: userAssignedIdentityName
-  location: location
+  scope: resourceGroup(userAssignedIdentityResourceGroup)
+  params: {
+    userAssignedIdentityName: userAssignedIdentityName
+    location: location
+  }
 }
