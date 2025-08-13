@@ -1,8 +1,8 @@
 @description('Workspace Resource ID.')
-param WorkspaceResourceId string
+param parparWorkspaceResourceId string
 
 @description('Workspace Location.')
-param WorkspaceLocation string
+param parparWorkspaceLocation string
 
 @description('This is the name of the Data Collection Rule(DCR) for Defender for SQL.')
 @metadata({ displayName: 'Name of the Data Collection Rule(DCR)' })
@@ -14,11 +14,11 @@ param enableCollectionOfSqlQueriesForSecurityResearch bool = false
 
 module modDefenderSql './modules/defenderSql.bicep' = {
   name: parDcrDefenderSql
-  scope: resourceGroup(split(WorkspaceResourceId, '/')[2], split(WorkspaceResourceId, '/')[4])
+  scope: resourceGroup(split(parWorkspaceResourceId, '/')[2], split(parWorkspaceResourceId, '/')[4])
   params: {
     parDcrDefenderSql: parDcrDefenderSql
-    WorkspaceLocation: WorkspaceLocation
+    parWorkspaceLocation: parWorkspaceLocation
     enableCollectionOfSqlQueriesForSecurityResearch: enableCollectionOfSqlQueriesForSecurityResearch
-    WorkspaceResourceId: WorkspaceResourceId
+    parWorkspaceResourceId: parWorkspaceResourceId
   }
 }
