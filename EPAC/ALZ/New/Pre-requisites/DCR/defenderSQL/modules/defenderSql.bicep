@@ -3,11 +3,11 @@
 param parDcrDefenderSql string
 
 @description('Workspace Location.')
-param WorkspaceLocation string
+param parWorkspaceLocationstring
 
 @description('Enable collection of SQL queries for security research')
 @metadata({ displayName: 'Enable collection of SQL queries for security research' })
-param enableCollectionOfSqlQueriesForSecurityResearch bool
+param parEnableCollectionOfSqlQueriesForSecurityResearch bool
 
 @description('Workspace Resource ID.')
 param WorkspaceResourceId string
@@ -31,7 +31,7 @@ resource DefenderSql 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
             'Microsoft-SqlAtpStatus-DefenderForSql'
           ]
           extensionSettings: {
-            enableCollectionOfSqlQueriesForSecurityResearch: enableCollectionOfSqlQueriesForSecurityResearch
+            parEnableCollectionOfSqlQueriesForSecurityResearch: parEnableCollectionOfSqlQueriesForSecurityResearch
           }
         }
       ]
