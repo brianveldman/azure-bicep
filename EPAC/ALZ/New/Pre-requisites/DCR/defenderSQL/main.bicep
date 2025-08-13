@@ -12,7 +12,7 @@ param userGivenDcrName string = 'dcr-defendersql-prod'
 @metadata({ displayName: 'Enable collection of SQL queries for security research' })
 param enableCollectionOfSqlQueriesForSecurityResearch bool = false
 
-module userGivenDcr './modules/defenderSql.bicep' = {
+module modDefenderSql './modules/defenderSql.bicep' = {
   name: userGivenDcrName
   scope: resourceGroup(split(WorkspaceResourceId, '/')[2], split(WorkspaceResourceId, '/')[4])
   params: {
