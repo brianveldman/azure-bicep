@@ -8,7 +8,7 @@ param WorkspaceLocation string
 @description('Workspace Resource ID.')
 param WorkspaceResourceId string
 
-resource userGivenDcr 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
+resource vmInsights 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
   name: parVmInsights
   location: WorkspaceLocation
   properties: {
