@@ -1,6 +1,6 @@
 @description('This is the name of the Data Collection Rule(DCR) for Defender for SQL.')
 @metadata({ displayName: 'Name of the Data Collection Rule(DCR)' })
-param userGivenDcrName string
+param parDcrDefenderSql string
 
 @description('Workspace Location.')
 param WorkspaceLocation string
@@ -12,8 +12,8 @@ param enableCollectionOfSqlQueriesForSecurityResearch bool
 @description('Workspace Resource ID.')
 param WorkspaceResourceId string
 
-resource userGivenDcr 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
-  name: userGivenDcrName
+resource DefenderSql 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
+  name: parDcrDefenderSql
   location: WorkspaceLocation
   properties: {
     description: 'Data collection rule for Defender for SQL.'
