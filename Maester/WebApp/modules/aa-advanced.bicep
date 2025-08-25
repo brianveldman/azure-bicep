@@ -7,12 +7,12 @@ param __ouMaesterScriptBlobUri__ string
 param _maesterAutomationAccountName_ string
 param __currentUtcTime__ string = utcNow()
 
-@description('Role Assignment Deployment')
+@description('Microsoft Graph - Role Assignment Deployment')
 resource graphId 'Microsoft.Graph/servicePrincipals@v1.0' existing = {
   appId: '00000003-0000-0000-c000-000000000000'
 }
 
-@description('Role Assignment Deployment')
+@description('Exchange - Role Assignment Deployment')
 resource exchangeOnlineId 'Microsoft.Graph/servicePrincipals@v1.0' existing =  {
   appId: '00000002-0000-0ff1-ce00-000000000000'
 }
@@ -30,7 +30,7 @@ resource managedIdentityRoleAssignmentExchange 'Microsoft.Graph/appRoleAssignedT
 }
 
 @description('Existing Automation Account')
-resource automationAccount 'Microsoft.Automation/automationAccounts@2023-11-01' existing = {
+resource automationAccount 'Microsoft.Automation/automationAccounts@2024-10-23' existing = {
   name: _maesterAutomationAccountName_
 }
 
@@ -52,7 +52,7 @@ resource automationAccountRunbook 'Microsoft.Automation/automationAccounts/runbo
 }
 
 @description('Schedule Deployment')
-resource automationAccountSchedule 'Microsoft.Automation/automationAccounts/schedules@2023-11-01' = {
+resource automationAccountSchedule 'Microsoft.Automation/automationAccounts/schedules@2024-10-23' = {
   name: 'scheduleMaester'
   parent: automationAccount
   properties: {
@@ -73,7 +73,7 @@ resource automationAccountSchedule 'Microsoft.Automation/automationAccounts/sche
 
 @description('Runbook Schedule Association')
 resource maesterRunbookSchedule 'Microsoft.Automation/automationAccounts/jobSchedules@2024-10-23' = {
-  name: guid(automationAccount.id, 'runb', 'sched')
+  name: guid(automationAccount.id, automationAccountRunbook.name, automationAccount.name)
   parent: automationAccount
   properties: {
     parameters: {}

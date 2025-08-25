@@ -4,6 +4,8 @@ using 'main.bicep'
 param __env__ = 'prod'
 param __cust__ = 'ct'
 param __location__ = 'westeurope'
+param __defaultTenantName__ = 'contoso.onmicrosoft.com'
+
 param __maesterAppRoles__ = [
   'DeviceManagementConfiguration.Read.All'
   'DeviceManagementManagedDevices.Read.All'
@@ -48,5 +50,15 @@ param __maesterAutomationAccountModules__ = [
     name: 'PackageManagement'
     uri: 'https://www.powershellgallery.com/api/v2/package/PackageManagement'
     version: '1.4.8.1'
+  }
+  {
+    name: 'ExchangeOnlineManagement'
+    uri: 'https://www.powershellgallery.com/api/v2/package/ExchangeOnlineManagement'
+    version: '3.8.0'
+  }
+  {
+    name: 'MicrosoftTeams'
+    uri: 'https://www.powershellgallery.com/api/v2/package/MicrosoftTeams'
+    version: '7.2.0'
   }
 ]

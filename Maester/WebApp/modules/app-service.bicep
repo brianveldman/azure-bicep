@@ -14,7 +14,7 @@ resource contributorRoleAssignment 'Microsoft.Authorization/roleAssignments@2022
   }
 }
 
-resource appServicePlan 'Microsoft.Web/serverfarms@2021-02-01' = {
+resource appServicePlan 'Microsoft.Web/serverfarms@2024-11-01' = {
   name: _appServicePlanName_
   location: __location__
   sku: {
@@ -24,9 +24,9 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2021-02-01' = {
 }
 
 resource graphMaesterApp 'Microsoft.Graph/applications@v1.0' = {
-  uniqueName: 'app-maester-prod'
+  uniqueName: 'idp-${_appServiceName_}'
   signInAudience: 'AzureADMyOrg'
-  displayName: 'app-maester-prod'
+  displayName: 'idp-${_appServiceName_}'
   web: {
     redirectUris: [
       'https://${_appServiceName_}.azurewebsites.net/.auth/login/aad/callback'
@@ -53,7 +53,7 @@ resource graphMaesterSp 'Microsoft.Graph/servicePrincipals@v1.0' = {
   appId: graphMaesterApp.appId
 }
 
-resource appService 'Microsoft.Web/sites@2024-04-01' = {
+resource appService 'Microsoft.Web/sites@2024-11-01' = {
   name: _appServiceName_
   location: __location__
   identity: {
@@ -72,7 +72,7 @@ resource appService 'Microsoft.Web/sites@2024-04-01' = {
   }
 }
 
-resource authsettings 'Microsoft.Web/sites/config@2022-09-01' = {
+resource authsettings 'Microsoft.Web/sites/config@2024-11-01' = {
  parent: appService
  name: 'authsettingsV2'
   properties: {
