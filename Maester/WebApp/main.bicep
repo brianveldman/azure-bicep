@@ -37,7 +37,7 @@ var _maesterAutomationVariables_ = [
   }
   {
     name: 'enableTeamsTests'
-    value: 'true'
+    value: 'false'
     isEncrypted: false
   }
   {
@@ -47,7 +47,7 @@ var _maesterAutomationVariables_ = [
   }
   {
     name: 'enableComplianceTests'
-    value: 'true'
+    value: 'false'
     isEncrypted: false
   }
 ]
