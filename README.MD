@@ -49,7 +49,7 @@ This repository contains Azure Bicep templates and PowerShell scripts for deploy
 - **[PSDocs/](07-Testing-Validation/PSDocs/)** - PowerShell documentation generation
 
 ### 💾 08-Storage-Data
-- **[storage/](08-Storage-Data/storage/)** - Storage account templates
+- **[Storage/](08-Storage-Data/Storage/)** - Storage account templates
 
 ### 🧪 09-Experimental-Utilities
 - **[Experimental Features/](09-Experimental-Utilities/Experimental%20Features/)** - Testing new Azure features
