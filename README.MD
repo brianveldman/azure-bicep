@@ -55,6 +55,12 @@ This repository contains Azure Bicep templates and PowerShell scripts for deploy
 - **[Experimental Features/](09-Experimental-Utilities/Experimental%20Features/)** - Testing new Azure features
 - **[Scripting/](09-Experimental-Utilities/Scripting/)** - Utility scripts and helpers
 
+### 📚 10-Examples-Demos
+- **[Bicep Features/](10-Examples-Demos/Bicep%20Features/)** - New Bicep language features and functions
+  - **[Functions/](10-Examples-Demos/Bicep%20Features/Functions/)** - Built-in function examples
+    - [like/](10-Examples-Demos/Bicep%20Features/Functions/like/) - Pattern matching with wildcards
+    - [distinct/](10-Examples-Demos/Bicep%20Features/Functions/distinct/) - Array deduplication
+
 ## Key Features
 
 ### 🏢 Enterprise-Scale Landing Zones
