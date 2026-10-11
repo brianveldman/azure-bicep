@@ -2,96 +2,144 @@
 
 This repository contains Azure Bicep templates and PowerShell scripts for deploying and managing Azure resources.
 
-## Structure
+## Bicep Index
+This index covers all 98 Bicep files, including 49 deployment entry points. Main templates link directly to `main.bicep`; link text uses solution names.
 
 ### 🏗️ 01-Infrastructure-Networking
-- **[ALZ/](01-Infrastructure-Networking/ALZ/)** - Azure Landing Zones management group hierarchy
-  - [MGMT/](01-Infrastructure-Networking/ALZ/MGMT/) - Management group configuration
-  - [PIM/](01-Infrastructure-Networking/ALZ/PIM/) - Privileged Identity Management in ALZ scope
-- **[Arc/](01-Infrastructure-Networking/Arc/)** - Azure Arc configurations for hybrid cloud
-  - [Kubernetes/](01-Infrastructure-Networking/Arc/Kubernetes/) - Arc-enabled Kubernetes clusters
-- **[Bastion/](01-Infrastructure-Networking/Bastion/)** - Secure RDP/SSH access configurations
-- **[Networking/](01-Infrastructure-Networking/Networking/)** - Virtual networks, NSGs, and network infrastructure
-  - [Bastion/](01-Infrastructure-Networking/Networking/Bastion/) - Network-integrated Bastion host
-  - [CIDR-Functions/](01-Infrastructure-Networking/Networking/CIDR-Functions/) - CIDR calculation and address space functions
-  - [MPS/](01-Infrastructure-Networking/Networking/MPS/) - Microsoft Purview/Private endpoint scenarios
-  - [Network Security Perimeter/](01-Infrastructure-Networking/Networking/Network%20Security%20Perimeter/) - Network Security Perimeter configurations
-  - [Network as Code/](01-Infrastructure-Networking/Networking/Network%20as%20Code/) - Infrastructure-as-code network deployments (VNet, Firewall)
+- [ALZ / Management Group Configuration](01-Infrastructure-Networking/ALZ/MGMT/main.bicep)
+- [ALZ / Privileged Identity Management](01-Infrastructure-Networking/ALZ/PIM/main.bicep)
+- [Bastion](01-Infrastructure-Networking/Bastion/main.bicep)
+- [Networking / Bastion](01-Infrastructure-Networking/Networking/Bastion/main.bicep)
+- [Networking / CIDR Functions / Part 1](01-Infrastructure-Networking/Networking/CIDR-Functions/Part%201/main.bicep)
+- [Networking / CIDR Functions / Part 2](01-Infrastructure-Networking/Networking/CIDR-Functions/Part%202/main.bicep)
+- [Networking / Explicit Proxy](01-Infrastructure-Networking/Networking/Explicit%20Proxy/main.bicep)
+- [Networking / MPS](01-Infrastructure-Networking/Networking/MPS/main.bicep)
+- [Networking / Network Security Perimeter](01-Infrastructure-Networking/Networking/Network%20Security%20Perimeter/main.bicep)
+- [Networking / Network as Code](01-Infrastructure-Networking/Networking/Network%20as%20Code/main.bicep)
+
+Supporting Bicep files:
+- [ALZ / PIM / Modules / PIM](01-Infrastructure-Networking/ALZ/PIM/modules/pim.bicep)
+- [Networking / Bastion / Modules / Network as Code](01-Infrastructure-Networking/Networking/Bastion/modules/nac.bicep)
+- [Networking / CIDR Functions / Part 1 / Explanation](01-Infrastructure-Networking/Networking/CIDR-Functions/Part%201/Explanation.bicep)
+- [Networking / CIDR Functions / Part 1 / Modules / Network](01-Infrastructure-Networking/Networking/CIDR-Functions/Part%201/Modules/network.bicep)
+- [Networking / CIDR Functions / Part 2 / Modules / Network](01-Infrastructure-Networking/Networking/CIDR-Functions/Part%202/modules/network.bicep)
+- [Networking / MPS / Modules / Virtual Network](01-Infrastructure-Networking/Networking/MPS/modules/vnet.bicep)
+- [Networking / Network Security Perimeter / Modules / Network Security Perimeter](01-Infrastructure-Networking/Networking/Network%20Security%20Perimeter/modules/nsp.bicep)
+- [Networking / Network As Code / Modules / Azure Firewall](01-Infrastructure-Networking/Networking/Network%20as%20Code/modules/afw.bicep)
+- [Networking / Network As Code / Modules / Network as Code](01-Infrastructure-Networking/Networking/Network%20as%20Code/modules/nac.bicep)
 
 ### 🤖 02-AI-ML
-- **[AI/](02-AI-ML/AI/)** - AI and ML services
-  - [Computer Vision/](02-AI-ML/AI/Computer%20Vision/) - Computer Vision API implementations
-  - [OpenAI/](02-AI-ML/AI/OpenAI/) - Azure OpenAI service integration with PowerShell
-  - [SRE/](02-AI-ML/AI/SRE/) - Site Reliability Engineering for AI services
-- **[CoPilot/](02-AI-ML/CoPilot/)** - Copilot integrations
-  - [Custom Instructions/](02-AI-ML/CoPilot/Custom%20Instructions/) - Custom Copilot instructions
-- **[Security Copilot/](02-AI-ML/Security%20Copilot/)** - Security Copilot integrations
+- [AI / Computer Vision](02-AI-ML/AI/Computer%20Vision/main.bicep)
+- [AI / Model Router](02-AI-ML/AI/Model%20Router/main.bicep)
+- [AI / OpenAI](02-AI-ML/AI/OpenAI/main.bicep)
+- [AI / Site Reliability Engineering](02-AI-ML/AI/SRE/main.bicep)
+- [Security Copilot](02-AI-ML/Security%20Copilot/main.bicep)
+
+Supporting Bicep files:
+- [AI / Computer Vision / Modules / Computer Vision](02-AI-ML/AI/Computer%20Vision/modules/ai-cv.bicep)
+- [AI / Model Router / Modules / Ai](02-AI-ML/AI/Model%20Router/modules/ai.bicep)
+- [AI / Openai / Modules / OpenAI](02-AI-ML/AI/OpenAI/modules/oai.bicep)
+- [Security Copilot / Modules / Security](02-AI-ML/Security%20Copilot/modules/security.bicep)
 
 ### 🔒 03-Security-Identity
-- **[Entra External ID/](03-Security-Identity/Entra%20External%20ID/)** - External identity configurations
-  - [No-WAF/](03-Security-Identity/Entra%20External%20ID/No-WAF/) - CIAM without Web Application Firewall
-- **[Entra ID/](03-Security-Identity/Entra%20ID/)** - Entra ID (Azure AD) templates
-  - [Kerberos Authentication/](03-Security-Identity/Entra%20ID/%20Kerberos%20Authentication/) - Kerberos authentication with Storage accounts
-  - [Federated Identity Credential/](03-Security-Identity/Entra%20ID/Federated%20Identity%20Credential/) - Workload identity federation
-  - [Managed Identities/](03-Security-Identity/Entra%20ID/Managed%20Identities/) - Managed identity role assignments
-- **[PIM/](03-Security-Identity/PIM/)** - Privileged Identity Management role automation
-- **[MDFC/](03-Security-Identity/MDFC/)** - Microsoft Defender for Cloud security posture
-- **[Multi-User Authorization/](03-Security-Identity/Multi-User%20Authorization/)** - Multi-user authorization patterns
-- **[Maester/](03-Security-Identity/Maester/)** - Security testing and compliance automation
-  - [AutomationAccount/](03-Security-Identity/Maester/AutomationAccount/) - Maester via Automation Account
-  - [WebApp/](03-Security-Identity/Maester/WebApp/) - Maester via App Service web app
+- [Entra External ID / No-WAF](03-Security-Identity/Entra%20External%20ID/No-WAF/main.bicep)
+- [Entra ID / Kerberos Authentication / Storage](03-Security-Identity/Entra%20ID/%20Kerberos%20Authentication/Storage/main.bicep)
+- [Entra ID / Federated Identity Credential](03-Security-Identity/Entra%20ID/Federated%20Identity%20Credential/main.bicep)
+- [Entra ID / Managed Identities / Assign Permissions](03-Security-Identity/Entra%20ID/Managed%20Identities/Assign%20Permissions/main.bicep)
+- [Microsoft Defender for Cloud / Services](03-Security-Identity/MDFC/Services/main.bicep)
+- [Maester / Automation Account](03-Security-Identity/Maester/AutomationAccount/main.bicep)
+- [Maester / Web App](03-Security-Identity/Maester/WebApp/main.bicep)
+- [Multi-User Authorization](03-Security-Identity/Multi-User%20Authorization/main.bicep)
+
+Supporting Bicep files:
+- [Entra External Id / No-WAF / Modules / External ID](03-Security-Identity/Entra%20External%20ID/No-WAF/modules/ciam.bicep)
+- [Entra Id / Kerberos Authentication / Storage / Modules / Storage Account](03-Security-Identity/Entra%20ID/%20Kerberos%20Authentication/Storage/modules/sa.bicep)
+- [Entra Id / Kerberos Authentication / Storage / Readers and Writers](03-Security-Identity/Entra%20ID/%20Kerberos%20Authentication/Storage/readersWriters.bicep)
+- [Maester / Automationaccount / Modules / Advanced Automation Account](03-Security-Identity/Maester/AutomationAccount/modules/aa-advanced.bicep)
+- [Maester / Automationaccount / Modules / Automation Account](03-Security-Identity/Maester/AutomationAccount/modules/aa.bicep)
+- [Maester / Webapp / Modules / Advanced Automation Account](03-Security-Identity/Maester/WebApp/modules/aa-advanced.bicep)
+- [Maester / Webapp / Modules / Automation Account](03-Security-Identity/Maester/WebApp/modules/aa.bicep)
+- [Maester / Webapp / Modules / App-service](03-Security-Identity/Maester/WebApp/modules/app-service.bicep)
+- [Multi-user Authorization / Modules / Backup](03-Security-Identity/Multi-User%20Authorization/modules/backup.bicep)
+- [PIM / PIM](03-Security-Identity/PIM/pim.bicep)
 
 ### 🚀 04-Compute-Containers
-- **[ACS/](04-Compute-Containers/ACS/)** - Azure Container Service configurations
-- **[Azure Container Apps/](04-Compute-Containers/Azure%20Container%20Apps/)** - Container Apps deployments
-  - [DeepSeek/](04-Compute-Containers/Azure%20Container%20Apps/DeepSeek/) - DeepSeek model deployment on Container Apps
-  - [Flexible/](04-Compute-Containers/Azure%20Container%20Apps/Flexible/) - Flexible Container Apps environment
-  - [Microsoft Graph/Conditional Access Exporter/](04-Compute-Containers/Azure%20Container%20Apps/Microsoft%20Graph/Conditional%20Access%20Exporter/) - Conditional Access policy exporter via Graph API
-- **[Azure Compute Gallery/](04-Compute-Containers/Azure%20Compute%20Gallery/)** - Compute gallery templates
-- **[Azure Virtual Desktop/](04-Compute-Containers/Azure%20Virtual%20Desktop/)** - Azure Virtual Desktop deployments
-  - [Session Host Config/](04-Compute-Containers/Azure%20Virtual%20Desktop/Session%20Host%20Config/) - AVD session host configuration
-- **[Functions/](04-Compute-Containers/Functions/)** - Serverless Azure Functions
-  - [Deployer/](04-Compute-Containers/Functions/Deployer/) - Function App with VNet integration
-- **[Packer/](04-Compute-Containers/Packer/)** - Packer image building pre-requisite resources
-- **[Local/](04-Compute-Containers/Local/)** - Local VM and development environment setup
-  - [Aks/](04-Compute-Containers/Local/Aks/) - Local AKS cluster deployment
-  - [VMs/](04-Compute-Containers/Local/VMs/) - Local virtual machine images and compute
+- [Azure Container Service](04-Compute-Containers/ACS/main.bicep)
+- [Azure Compute Gallery](04-Compute-Containers/Azure%20Compute%20Gallery/main.bicep)
+- [Azure Container Apps / Azure PowerShell](04-Compute-Containers/Azure%20Container%20Apps/Azure%20PowerShell/main.bicep)
+- [Azure Container Apps / DeepSeek](04-Compute-Containers/Azure%20Container%20Apps/DeepSeek/main.bicep)
+- [Azure Container Apps / Flexible Environment](04-Compute-Containers/Azure%20Container%20Apps/Flexible/main.bicep)
+- [Azure Container Apps / Conditional Access Exporter](04-Compute-Containers/Azure%20Container%20Apps/Microsoft%20Graph/Conditional%20Access%20Exporter/main.bicep)
+- [Azure Container Apps / Sandboxes](04-Compute-Containers/Azure%20Container%20Apps/Sandboxes/main.bicep)
+- [Azure Virtual Desktop / Session Host Configuration](04-Compute-Containers/Azure%20Virtual%20Desktop/Session%20Host%20Config/main.bicep)
+- [Azure Virtual Machines / GPU](04-Compute-Containers/Azure%20Virtual%20Machines/GPU/main.bicep)
+- [Azure Functions / Deployer](04-Compute-Containers/Functions/Deployer/main.bicep)
+- [Local / AKS](04-Compute-Containers/Local/Aks/main.bicep)
+- [Local / Virtual Machine Compute](04-Compute-Containers/Local/VMs/compute/main.bicep)
+- [Packer / Prerequisite Resources](04-Compute-Containers/Packer/prereq-resources/main.bicep)
+
+Supporting Bicep files:
+- [ACS / Modules / Acs](04-Compute-Containers/ACS/modules/acs.bicep)
+- [Azure Container Apps / Azure Powershell / Modules / Aca](04-Compute-Containers/Azure%20Container%20Apps/Azure%20PowerShell/modules/aca.bicep)
+- [Azure Container Apps / Deepseek / Modules / Ai](04-Compute-Containers/Azure%20Container%20Apps/DeepSeek/modules/ai.bicep)
+- [Azure Container Apps / Microsoft Graph / Conditional Access Exporter / Modules / Aca](04-Compute-Containers/Azure%20Container%20Apps/Microsoft%20Graph/Conditional%20Access%20Exporter/modules/aca.bicep)
+- [Azure Virtual Desktop / Session Host Config / Modules / Avd](04-Compute-Containers/Azure%20Virtual%20Desktop/Session%20Host%20Config/modules/avd.bicep)
+- [Functions / Deployer / Virtual Network](04-Compute-Containers/Functions/Deployer/vnet.bicep)
+- [Local / Aks / Modules / AKS](04-Compute-Containers/Local/Aks/modules/aks.bicep)
+- [Local / VMs / Compute / Modules / Virtual Machine](04-Compute-Containers/Local/VMs/compute/modules/vm.bicep)
+- [Local / VMs / Images / Local VM Image](04-Compute-Containers/Local/VMs/images/localVmImage.bicep)
 
 ### 🛠️ 05-DevOps-Automation
-- **[Managed DevOps Pools/](05-DevOps-Automation/Managed%20DevOps%20Pools/)** - Azure Managed DevOps Pools
-- **[Maintenance Configurations/](05-DevOps-Automation/Maintenance%20Configurations/)** - Maintenance window configurations
-  - [Firewall/](05-DevOps-Automation/Maintenance%20Configurations/Firewall/) - Maintenance config for Azure Firewall
-  - [VNet Gateway/](05-DevOps-Automation/Maintenance%20Configurations/VNet%20Gateway/) - Maintenance config for VNet Gateways
-- **[Service Groups/](05-DevOps-Automation/Service%20Groups/)** - Service group configurations
-  - [Resources/](05-DevOps-Automation/Service%20Groups/Resources/) - Service group resource relationship definitions
+- [Maintenance Configurations / Firewall](05-DevOps-Automation/Maintenance%20Configurations/Firewall/main.bicep)
+- [Maintenance Configurations / VNet Gateway](05-DevOps-Automation/Maintenance%20Configurations/VNet%20Gateway/main.bicep)
+- [Managed DevOps Pools](05-DevOps-Automation/Managed%20DevOps%20Pools/main.bicep)
+- [Service Groups / Resources](05-DevOps-Automation/Service%20Groups/Resources/main.bicep)
+
+Supporting Bicep files:
+- [Maintenance Configurations / Firewall / Modules / Maintenance Configuration](05-DevOps-Automation/Maintenance%20Configurations/Firewall/modules/mc.bicep)
+- [Maintenance Configurations / Vnet Gateway / Modules / Maintenance Configuration](05-DevOps-Automation/Maintenance%20Configurations/VNet%20Gateway/modules/mc.bicep)
+- [Managed Devops Pools / Modules / Managed DevOps Pool](05-DevOps-Automation/Managed%20DevOps%20Pools/modules/mdp.bicep)
+- [Service Groups / Resources / Modules / Relationship](05-DevOps-Automation/Service%20Groups/Resources/modules/relationship.bicep)
+- [Service Groups / Example](05-DevOps-Automation/Service%20Groups/example.bicep)
 
 ### 📋 06-Governance-Compliance
-- **[EPAC/](06-Governance-Compliance/EPAC/)** - Enterprise Policy as Code for Azure Policy management
-  - [ALZ/](06-Governance-Compliance/EPAC/ALZ/) - ALZ-aligned policy pre-requisites (DCR, UAMI)
-  - [PolicyAssignment/](06-Governance-Compliance/EPAC/PolicyAssignment/) - Policy assignment templates
-- **[FinOps/](06-Governance-Compliance/FinOps/)** - Financial operations and cost management
-  - [AVM/](06-Governance-Compliance/FinOps/AVM/) - FinOps using Azure Verified Modules
+- [EPAC / ALZ / Defender for SQL](06-Governance-Compliance/EPAC/ALZ/New/Pre-requisites/DCR/defenderSQL/main.bicep)
+- [EPAC / ALZ / VM Insights](06-Governance-Compliance/EPAC/ALZ/New/Pre-requisites/DCR/vmInsights/main.bicep)
+- [EPAC / ALZ / User-Assigned Managed Identity](06-Governance-Compliance/EPAC/ALZ/New/Pre-requisites/UAMI/main.bicep)
+
+Supporting Bicep files:
+- [Epac / ALZ / New / Pre-requisites / Dcr / Defender SQL / Modules / Defender for SQL](06-Governance-Compliance/EPAC/ALZ/New/Pre-requisites/DCR/defenderSQL/modules/defenderSql.bicep)
+- [Epac / ALZ / New / Pre-requisites / Dcr / VM Insights / Modules / VM Insights](06-Governance-Compliance/EPAC/ALZ/New/Pre-requisites/DCR/vmInsights/modules/vmInsights.bicep)
+- [Epac / ALZ / New / Pre-requisites / UAMI / Modules / User-Assigned Managed Identity](06-Governance-Compliance/EPAC/ALZ/New/Pre-requisites/UAMI/modules/uami.bicep)
+- [Finops / Avm / FinOps](06-Governance-Compliance/FinOps/AVM/finops.bicep)
 
 ### ✅ 07-Testing-Validation
-- **[PSRule/](07-Testing-Validation/PSRule/)** - PSRule validation for IaC
-- **[Pester/](07-Testing-Validation/Pester/)** - Pester testing framework
-- **[PSDocs/](07-Testing-Validation/PSDocs/)** - PowerShell documentation generation
+- [PSDocs](07-Testing-Validation/PSDocs/main.bicep)
+- [PSRule / Test](07-Testing-Validation/PSRule/test/main.bicep)
+- [Pester](07-Testing-Validation/Pester/main.bicep)
+
+Supporting Bicep files:
+- [Psdocs / Modules / Azure Firewall](07-Testing-Validation/PSDocs/modules/afw.bicep)
+- [Psdocs / Modules / Network as Code](07-Testing-Validation/PSDocs/modules/nac.bicep)
+- [Psrule / Test / Modules / Storage Account](07-Testing-Validation/PSRule/test/modules/storageAccount.bicep)
+- [Pester / Modules / Storage Account](07-Testing-Validation/Pester/modules/storage-account.bicep)
+- [Pester / Modules / Web App](07-Testing-Validation/Pester/modules/web-app.bicep)
 
 ### 💾 08-Storage-Data
-- **[storage.bicep](08-Storage-Data/storage.bicep)** - Storage account template
+
+Supporting Bicep files:
+- [Storage](08-Storage-Data/storage.bicep)
 
 ### 🧪 09-Experimental-Utilities
-- **[Experimental Features/](09-Experimental-Utilities/Experimental%20Features/)** - Testing new Azure features
-  - [localDeploy/](09-Experimental-Utilities/Experimental%20Features/localDeploy/) - Local deployment experiments (HTTP extension, Kubernetes)
-- **[Scripting/](09-Experimental-Utilities/Scripting/)** - Utility scripts and helpers
-  - [Azure Update Manager/](09-Experimental-Utilities/Scripting/Azure%20Update%20Manager/) - Update Manager automation scripts
-  - [DeploymentScripts/](09-Experimental-Utilities/Scripting/DeploymentScripts/) - Inline deployment script templates
+- [Experimental Features / Local Deployment / HTTP](09-Experimental-Utilities/Experimental%20Features/localDeploy/http/main.bicep)
+- [Deployment Scripts / Storage](09-Experimental-Utilities/Scripting/DeploymentScripts/Storage/main.bicep)
 
-### 📚 10-Examples-Demos
-- **[Bicep Features/](10-Examples-Demos/Bicep%20Features/)** - New Bicep language features and functions
-  - **[Functions/](10-Examples-Demos/Bicep%20Features/Functions/)** - Built-in function examples
-    - [like/](10-Examples-Demos/Bicep%20Features/Functions/like/) - Pattern matching with wildcards
-    - [distinct/](10-Examples-Demos/Bicep%20Features/Functions/distinct/) - Array deduplication
+Supporting Bicep files:
+- [Experimental Features / Local Deployment / K8s](09-Experimental-Utilities/Experimental%20Features/localDeploy/k8s.bicep)
+- [Scripting / Deploymentscripts / Storage / Modules / Storage Account](09-Experimental-Utilities/Scripting/DeploymentScripts/Storage/modules/sa.bicep)
+
+### 📊 12-Azure-Monitor
+- [Azure Monitor / Health Models](12-Azure-Monitor/Health%20Models/main.bicep) - Application health model with availability signals for Storage, Key Vault, NAT Gateway, and Public IP.
 
 ## Key Features
 
