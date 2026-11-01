@@ -31,7 +31,7 @@ resource aip 'Microsoft.CognitiveServices/accounts/projects@2025-06-01' = {
   }
 }
 
-@description('Deployment of Foundry Model Router')
+@description('Deployment of GPT 6 Sol Model')
 resource gptModel 'Microsoft.CognitiveServices/accounts/deployments@2025-06-01' = {
   name: 'gpt-6-sol-deployment'
   parent: aif
@@ -51,7 +51,7 @@ resource gptModel 'Microsoft.CognitiveServices/accounts/deployments@2025-06-01' 
   ]
 }
 
-@description('Deployment of Foundry Model Router')
+@description('Deployment of Grok 4.7 Model')
 resource grokModel 'Microsoft.CognitiveServices/accounts/deployments@2025-06-01' = {
   name: 'grok-4-7-deployment'
   parent: aif
